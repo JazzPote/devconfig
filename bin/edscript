@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Did the user supply a script name?
+if [[ ! "$1" ]]; then
+	echo "You must supply a script name"
+	exit 1
+fi
+
+scriptname="$1"
+bindir="${HOME}/bin"
+scriptpath="${bindir}/${scriptname}"
+
+# Does the script exist?
+if [[ ! -e "$scriptpath" ]]; then
+	echo "Script \"${scriptname}\" does not exist"
+	exit 1
+fi
+
+# Open EDITOR if exists
+if [[ "$EDITOR" ]]; then
+	$EDITOR "$scriptpath"
+else
+	echo "Could not edit script: EDITOR variable not set"
+	exit 1
+fi
+
+echo $'\nSuccessfully edited script ${scriptname}\n'
+
+exit 0
+

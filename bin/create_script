@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Creates a script, gives it permissions and more
+
+# Is there a script name argument
+if [[ ! "$1" ]]; then
+	echo "You must provide a script name"
+	exit 1
+fi
+
+scriptname="$1"
+bindir="${HOME}/bin"
+scriptpath="${bindir}/${scriptname}"
+
+# Does the script already exist
+if [[ -e "$scriptpath" ]]; then 
+	echo "Script already exist"
+	exit 1
+fi
+
+# Create the bin dir if it doesn't exist
+if [[ ! -d "$bindir" ]]; then
+	if mkdir "$bindir"; then
+		echo "Bin dir successfully created at ${bindir}"
+	else
+		echo "Couldn't create the required bin dir at ${bindir}"
+		exit 1
+	fi
+fi
+
+# Does the command already exist?
+if type "$scriptname"; then
+	echo "Command already exist"
+	exit 1
+fi
+
+# Create script file, add the permissions
+createFileErrMsg="Error: could not create script at ${scriptpath}"
+addPermsErrMsg="Error: could not add executable permission to script ${scriptpath}"
+
+if ! touch "$scriptpath"; then
+	echo "$createFileErrMsg"
+	exit 1
+fi
+
+if ! chmod u+x "$scriptpath"; then
+	echo "$addPermsErrMsg"
+	exit 1
+fi
+
+echo $'#!/bin/bash\n\n' >> "$scriptpath"
+
+# Let the user write the script, if an editor is set
+if [[ $EDITOR ]]; then
+	$EDITOR "$scriptpath"
+	echo "Successfully edited the script"
+else
+	echo "No EDITOR set on this system. Skipping script edition."
+fi
+
+
+printf "\nSuccessfully created the script \"%s\"\n\n" "$scriptname"
+
+
+
+exit 0
+
