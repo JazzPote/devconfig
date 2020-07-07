@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+randNumber=$(($RANDOM % 100))
+guess=
+
+until [[ $randNumber -eq $guess ]]; do
+	read -p "Take a guess: " guess
+	if [[ $randNumber -lt $guess ]]; then
+		echo "It's lower"
+	elif [[ $randNumber -gt $guess ]]; then
+		echo "It's greater"
+	else
+		echo "You found it!"
+	fi	
+done
+
+exit 0
+

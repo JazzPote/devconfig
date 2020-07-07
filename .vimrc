@@ -35,4 +35,6 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 
+" Able to paste multiple times
+xnoremap p pgvy
 

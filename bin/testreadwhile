@@ -1,0 +1,11 @@
+#!/bin/bash 
+
+
+touch dummyfile
+
+while [[ $(cat dummyfile |wc -l) -lt 8 ]]; do
+	echo "a" >> dummyfile
+	echo "Yes"
+done
+exit 0
+

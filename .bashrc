@@ -11,11 +11,11 @@ alias cz='npx git-cz'
 alias listScripts='ls -1 ~/bin'
 
 # TB dev aliases
-alias sapi='cd ../apigee-stub && npm start'
-alias sping='cd ../ping-mock && npm start'
-alias spsp='cd ../psp && npm start'
-alias skado='cd ../kado && npm start'
-alias ssettei='cd ../settei && npm start'
+alias sapi='cd ~/Projects/apigee-stub && npm start'
+alias sping='cd ~/Projects/ping-mock && npm start'
+alias spsp='cd ~/Projects/psp && npm start'
+alias skado='cd ~/Projects/kado && npm start'
+alias ssettei='cd ~/Projects/settei && npm start'
 alias hu='
 if [[ -e .huskyrc2 ]]; then 
 	if mv .huskyrc2 .huskyrc; then
@@ -35,5 +35,5 @@ function killport () {
 	lsof -ti tcp:$1 | xargs kill -9;
 }
 
-PATH=$PATH:~/bin
+PATH=$PATH:~/bin:~/.local/bin
 
