@@ -1,0 +1,56 @@
+#!/bin/bash
+
+########################################################
+#
+#
+# Usage:
+#
+# $ updateDotenv  path/to/.env.example  path/to/.env
+#
+#
+########################################################
+
+
+[[ $# -ne 2 ]] && { echo "You must supply 2 arguments" >&2; exit 1; }
+
+example="$1"
+dotenv="$2"
+
+
+# First, let's check the command is called with correct arguments
+# ---------------------------------------------------------------
+
+# Are the paths corrects?
+[[ "$example" != *.env.example ]] && { echo "Error: You must provide a path to the .env.example file as the first argument" >&2; exit 1; }
+[[ "$dotenv" != *.env ]] && { echo "Error: You must provide a path to the .env file as the first argument" >&2; exit 1; }
+
+# Do the files exist?
+[[ ! -e "$example" ]] && { echo "Error: Can't find ${example}" >&2; exit 1; }
+[[ ! -e "$dotenv" ]] && { echo "Error: Can't find ${dotenv}" >&2; exit 1; }
+
+
+# Actual logic
+# ------------------------
+
+# List all the vars in files
+exampleVars=( $(grep -oE '^\w+=' "$example"  | cut -d = -f 1) )
+dotenvVars=( $(grep -oE '^\w+=' "$dotenv"  | cut -d = -f 1) )
+
+# Compare them and add if missing to .env
+(( count=0 ))
+for exampleVar in "${exampleVars[@]}"; do
+    if [[ ! "${dotenvVars[@]}" =~ "$exampleVar" ]]; then
+        missingVarWithValue=$(grep "$exampleVar" "$example" |head -n 1)
+        (( count == 0 )) && echo "" >> "$dotenv"
+        (( ++count ))
+        echo "$missingVarWithValue" >> "$dotenv"
+    fi
+done
+
+# Ensure file ends with empty line
+(( count > 0 )) && echo "" >> "$dotenv"
+
+echo "${count} variables have been added with success"
+
+exit 0
+

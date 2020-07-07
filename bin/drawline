@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+if [[ $# -gt 2 ]]; then
+    echo "Maximum two arguments" >&2
+    exit 1
+fi
+
+if [[ ! $1 =~ ^[0-9]+$ ]]; then
+    echo "Argument 1 must be a number" >&2
+    exit 1
+fi
+
+length="$1"
+
+char="="
+if [[ $2 ]]; then
+    char="$2"
+fi
+
+line=
+for (( i=0; i<length; ++i )); do
+    line="${line}${char}"
+done
+
+printf "%s\n" "$line"
+
+exit 0
+

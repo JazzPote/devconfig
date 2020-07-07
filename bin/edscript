@@ -24,7 +24,7 @@ else
 	exit 1
 fi
 
-echo $'\nSuccessfully edited script ${scriptname}\n'
+echo "Successfully edited script \"${scriptname}\""
 
 exit 0
 

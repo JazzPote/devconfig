@@ -3,27 +3,22 @@
 # Creates a script, gives it permissions and more
 
 # Is there a script name argument
-if [[ ! "$1" ]]; then
-	echo "You must provide a script name"
-	exit 1
-fi
+[[ ! "$1" ]] && { echo "You must provide a script name" >&2; exit 1; }
 
 scriptname="$1"
 bindir="${HOME}/bin"
 scriptpath="${bindir}/${scriptname}"
 
 # Does the script already exist
-if [[ -e "$scriptpath" ]]; then 
-	echo "Script already exist"
-	exit 1
-fi
+[[ -e "$scriptpath" ]] && { echo "Script already exist" >&2; exit 1; }
+
 
 # Create the bin dir if it doesn't exist
 if [[ ! -d "$bindir" ]]; then
 	if mkdir "$bindir"; then
 		echo "Bin dir successfully created at ${bindir}"
 	else
-		echo "Couldn't create the required bin dir at ${bindir}"
+		echo "Couldn't create the required bin dir at ${bindir}" >&2
 		exit 1
 	fi
 fi
