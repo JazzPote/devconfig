@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Usage: count [-r] [-b n] [-s n] stop
+# -r reverses the count
+# -b gives the number to begin with
+# -s gives the step size
+# stop gives the number at which to stop counting
+
+reverse=""
+(( beginAt=0 ))
+(( stepSize=1 ))
+
+while getopts "b:s:r" opt; do
+    case "$opt" in
+        b)
+            [[ "$OPTARG" =~ ^[0-9]+$ ]] || { echo "Begin (-b) must be a number" >&2; exit 1; }
+            beginAt=$OPTARG
+            ;;
+        s)
+             [[ "$OPTARG" =~ ^[0-9]+$ ]] || { echo "Step size (-s) must be a number" >&2; exit 1; }
+             stepSize=$OPTARG
+             ;;
+        r)
+            reverse="yes"
+            ;;
+        # getopts returns "?" character if unknown option or missing argument
+        \?)
+            exit 1
+            ;;
+    esac
+done
+
+
+# Removes options
+shift $(( $OPTIND -1 ))
+
+[[ $1 ]] || { echo "You must provide a stop number" >&2; exit 1; }
+[[ $1 =~ ^[0-9]+$ ]] || { echo "Stop argument must be a number" >&2; exit 1; }
+stop="$1"
+
+if [[ ! $reverse ]]; then
+    for (( i=beginAt; i<=stop; i+=stepSize )); do
+        echo $i
+    done
+else
+    for (( i=stop; i>=beginAt; i-=stepSize )); do
+        echo $i
+    done
+fi
+
+exit 0
+

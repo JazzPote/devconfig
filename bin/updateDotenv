@@ -1,14 +1,32 @@
 #!/bin/bash
 
 ########################################################
-#
+
 #
 # Usage:
 #
-# $ updateDotenv  path/to/.env.example  path/to/.env
+# $ updateDotenv  [-p]  path/to/.env.example  path/to/.env
 #
 #
 ########################################################
+
+
+purge=""
+verbose=""
+
+while getopts "pv" opt; do
+    case "$opt" in
+        p)
+            purge="yes"
+            ;;
+        v)
+            verbose="yes"
+            ;;
+        \?)
+            exit 1;
+    esac
+done
+shift $(( $OPTIND - 1  ))
 
 
 [[ $# -ne 2 ]] && { echo "You must supply 2 arguments" >&2; exit 1; }
@@ -40,17 +58,44 @@ dotenvVars=( $(grep -oE '^\w+=' "$dotenv"  | cut -d = -f 1) )
 (( count=0 ))
 for exampleVar in "${exampleVars[@]}"; do
     if [[ ! "${dotenvVars[@]}" =~ "$exampleVar" ]]; then
+        [[ $verbose ]] && printf "Adding %s..." "$exampleVar"
         missingVarWithValue=$(grep "$exampleVar" "$example" |head -n 1)
         (( count == 0 )) && echo "" >> "$dotenv"
         (( ++count ))
         echo "$missingVarWithValue" >> "$dotenv"
+        [[ $verbose ]] && printf "OK\n"
     fi
 done
 
 # Ensure file ends with empty line
 (( count > 0 )) && echo "" >> "$dotenv"
 
-echo "${count} variables have been added with success"
+if (( $count )); then
+    echo "${count} variables have been added with success"
+else
+    echo "Nothing to update"
+fi
+
+
+(( count = 0 ))
+for dotenvVar in "${dotenvVars[@]}"; do
+    if [[ ! "${exampleVars[@]}" =~ "$dotenvVar" ]]; then
+        (( ++count ))
+        if [[ $purge ]]; then
+            tmpdotenv="/tmp/tmpdotenv"
+            [[ $verbose ]] && printf "Purging %s..." "$dotenvVar"
+            grep -vw "$dotenvVar" "$dotenv" > "$tmpdotenv"
+            mv "$tmpdotenv" "$dotenv"
+            [[ $verbose ]] && printf "OK\n"
+        fi
+    fi
+done
+
+if [[ $purge ]]; then
+    (( count > 0 )) && echo "${count} variables purged with success"
+elif (( count > 0 )); then
+    echo "${count} variables can be purged"
+fi
 
 exit 0
 

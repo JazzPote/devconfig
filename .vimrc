@@ -29,6 +29,11 @@ Plug 'git@github.com:kien/ctrlp.vim.git'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mbbill/undotree'
 Plug 'JamshedVesuna/vim-markdown-preview'
+" JSX, ts, js
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
 
 call plug#end()
 
@@ -37,4 +42,6 @@ set background=dark
 
 " Able to paste multiple times
 xnoremap p pgvy
+
+let g:ctrlp_custom_ignore = 'node_modules'
 
