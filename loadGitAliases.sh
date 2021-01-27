@@ -14,4 +14,8 @@ createAlias upc "commit --amend --no-edit"
 createAlias l log
 createAlias pf "push --force"
 createAlias pur "pull --rebase"
+createAlias rbi "rebase -i"
+createAlias saveb "checkout -b \"save--$(git symbolic-ref --short HEAD)\""
+createAlias delsave "br -D \"save--$(git symbolic-ref --short HEAD)\""
+createAlias ca "commit --amend"
 
