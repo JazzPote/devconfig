@@ -1,11 +1,8 @@
-# My .bashrc config import
+# Import my .bashrc config
 [[ -e ~/.bashrc ]] && emulate sh -c 'source ~/.bashrc'
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/Guilhem.Forey/.oh-my-zsh"
+export ZSH="/Users/guilhemforey/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -36,7 +33,7 @@ ZSH_THEME="avit"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -48,6 +45,8 @@ ZSH_THEME="avit"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -72,12 +71,11 @@ ZSH_THEME="avit"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	dotenv
-	osx
-	docker-compose
-	npm
-	npx
+    git
+    macos
+    docker-compose
+    npm
+    yarn-autocompletions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -104,19 +102,15 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 alias edzsh='vi ~/.zshrc'
-
-export PATH="$PATH:/Users/Guilhem.Forey/Library/Python/3.8/bin"
-export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.8/bin"
-export PATH="$PATH:/Users/Guilhem.Forey/Library/Python/3.7/bin"
-export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.7/bin"
+alias claimlogs='python ~/bin/claimlogs.py'
 
 ZSH_DISABLE_COMPFIX=true
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+source $(brew --prefix nvm)/etc/bash_completion.d
 
-#[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-#source /usr/share/nvm/nvm.sh
-#source /usr/share/nvm/bash_completion
-#source /usr/share/nvm/install-nvm-exec
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.poetry/bin:$PATH"
+eval "$(pyenv init -)"
+

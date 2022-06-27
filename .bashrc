@@ -1,5 +1,12 @@
+[[ -e ~/.tractablerc ]] && emulate sh -c "source ~/.tractablerc"
+
 export BASH_CONF="bashrc"
 export EDITOR='vim'
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 alias la='ls -A'
 alias ls='ls -GFA'
@@ -9,16 +16,14 @@ alias edbash='vi ~/.bashrc'
 alias edvi='vi ~/.vimrc'
 alias edzsh='vi ~/.zshrc'
 alias edvim='edvi'
+alias edtract='vi ~/.tractablerc'
 alias cz='npx git-cz'
 alias listScripts='ls -1 ~/bin'
-
-# TB dev aliases
-alias sapi='cd ~/Projects/apigee-stub && npm start'
-alias sping='cd ~/Projects/ping-mock && npm start'
-alias spsp='cd ~/Projects/psp && npm start'
-alias skado='cd ~/Projects/kado && npm start'
-alias ssettei='cd ~/Projects/settei && npm start'
-
+alias activate='source ./venv/bin/activate'
+alias py='python3'
+alias dc='docker-compose'
+alias cra='npx create-react-app'
+alias cna='npx create-next-app'
 
 function hu () {
     [[ -e .huskyrc || -e .huskyrc2 ]] || { echo "Not a Huskyrc folder" >&2; return 1; }
@@ -69,3 +74,13 @@ PATH=$PATH:~/bin:~/.local/bin
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+###########
+#         #
+#  AVENI  #
+#         #
+###########
+
+export AWS_SDK_LOAD_CONFIG=1
+
