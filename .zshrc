@@ -111,6 +111,5 @@ source $(brew --prefix nvm)/etc/bash_completion.d
 
 
 
-export PATH="$HOME/.poetry/bin:$PATH"
 eval "$(pyenv init -)"
 
