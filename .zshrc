@@ -75,7 +75,6 @@ plugins=(
     macos
     docker-compose
     npm
-    yarn-autocompletions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -109,7 +108,4 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 source $(brew --prefix nvm)/etc/bash_completion.d
 
-
-
 eval "$(pyenv init -)"
-

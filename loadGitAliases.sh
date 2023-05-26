@@ -5,17 +5,17 @@ function createAlias () {
     git config --global "alias.$1" "$2"
 }
 
-createAlias co checkout
-createAlias st status
-createAlias c commit
 createAlias br branch
-createAlias pfl "push --force-with-lease"
-createAlias upc "commit --amend --no-edit"
+createAlias c commit
+createAlias ca "commit --amend"
+createAlias co checkout
+createAlias delsave "br -D \"save--$(git symbolic-ref --short HEAD)\""
 createAlias l log
 createAlias pf "push --force"
+createAlias pfl "push --force-with-lease"
 createAlias pur "pull --rebase"
+createAlias rb rebase
 createAlias rbi "rebase -i"
 createAlias saveb "checkout -b \"save--$(git symbolic-ref --short HEAD)\""
-createAlias delsave "br -D \"save--$(git symbolic-ref --short HEAD)\""
-createAlias ca "commit --amend"
-
+createAlias st status
+createAlias upc "commit --amend --no-edit"

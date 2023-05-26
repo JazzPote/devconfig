@@ -3,7 +3,7 @@
 #####################
 
 # Going to install all the configs and scripts on the machine
-setup-machine: setup-configs setup-git-aliases setup-scripts setup-vscode
+setup-machine: setup-configs setup-git-aliases setup-scripts
 
 setup-configs:
 	cp .bashrc ~/.bashrc
@@ -15,9 +15,6 @@ setup-git-aliases:
 
 setup-scripts:
 	cp -r ./scripts ~/bin
-
-setup-vscode:
-	cp -r ./vscode/* ~/.vscode
 
 
 ######################
