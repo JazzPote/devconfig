@@ -2,7 +2,7 @@
 [[ -e ~/.bashrc ]] && emulate sh -c 'source ~/.bashrc'
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/guilhemforey/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
