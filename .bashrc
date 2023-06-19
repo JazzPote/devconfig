@@ -17,6 +17,7 @@ alias py='python3'
 alias dc='docker-compose'
 alias cra='npx create-react-app'
 alias cna='npx create-next-app'
+alias tf='terraform'
 
 
 function killport () {
