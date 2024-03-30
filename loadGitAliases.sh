@@ -9,6 +9,7 @@ createAlias br branch
 createAlias c commit
 createAlias ca "commit --amend"
 createAlias co checkout
+createAlias cp cherry-pick
 createAlias delsave "br -D \"save--$(git symbolic-ref --short HEAD)\""
 createAlias l log
 createAlias pf "push --force"
